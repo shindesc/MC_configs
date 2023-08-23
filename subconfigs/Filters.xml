@@ -1,0 +1,68 @@
+<group name="FilterDL_VXDB" type="FilterDoubleLayerHits">
+    <parameter name="FillHistograms" type="bool" value="true" />
+    <parameter name="SubDetectorName" type="string" value="Vertex" />
+    <!-- Name of the input hit collection -->
+    <parameter name="InputCollection" type="string" value="VBTrackerHits" />
+    <!-- Name of the output filtered hit collection -->
+    <parameter name="OutputCollection" type="string" value="VBTrackerHits_DL" />
+    <!-- Configuration of the maximum dU and dTheta between a pair of hits at the inner and outer layer -->
+    <parameter name="DeltaTimeMax" type="float"> 0.3 </parameter>
+    <!-- 4 numbers per double-layer: <inner layer ID>  <outer layer ID>  <dPhi max [mrad]>  <dTheta max [mrad]> -->
+    <parameter name="Verbosity" options="DEBUG0-9,MESSAGE0-9,WARNING0-9,ERROR0-9,SILENT">DEBUG0 </parameter>
+
+    <!-- NEW LOOSE CUTS -->
+    <processor name="FilterDL_VXDB" type="FilterDoubleLayerHits">
+      <parameter name="DoubleLayerCuts" type="StringVec">
+        0 1 2.0 35.0
+        2 3 1.7 18.0
+        4 5 1.5 10.0
+        6 7 1.4 6.5
+      </parameter>
+    </processor>
+  </group>   
+
+
+
+<processor name="FilterClusters" type="FilterClusters"> 
+    
+    <parameter name="Verbosity" options="DEBUG0-9,MESSAGE0-9,WARNING0-9,ERROR0-9,SILENT"> DEBUG0  </parameter>
+
+    <!--- Need to fill in these parameters with correct values for cuts-->
+    <!-- How to format these? They are vectors of strings -->
+    <parameter name="ThetaRanges" type="string">
+      0 0.7 1.05 2.1 2.5 3.2
+    </parameter>
+
+    <parameter name="ClusterSize" type="string">
+      <!--  tight cuts-->
+      4.5 3.5 2.5 3.5 4.5
+      <!-- loose cuts -->
+      <!-- 6.4, 4.6, 3.5, 4.6, 6.4 -->
+    </parameter>
+
+    <parameter name="Layers" type="string">
+      8 8 8 8 8
+    </parameter>
+
+  
+    <parameter name="InTrackerHitCollection" type="string" lcioInType="TrackerHitPlane">
+    <!-- need to write input tracker hit collection(s) here (which, just barrel...?)-->
+    <!-- unsure which collections to use -->
+      VBTrackerHits
+    </parameter>
+    
+    <parameter name="InRelationCollection" type="string" lcioInType="LCRelation">
+    <!-- this is the output of tracktruth-->
+      VBTrackerHitsRelations
+    </parameter>
+
+    <parameter name="OutTrackerHitCollection" type="string" lcioOutType="TrackerHitPlane">
+     <!-- need to write output tracker hit collection(s) here-->
+     VBTrackerHits_Filtered
+    </parameter>
+    
+    <parameter name="OutRelationCollection" type="string" lcioOutType="LCRelation">
+      VBTrackerHitsRelations_Filtered
+    </parameter>
+
+  </processor>
