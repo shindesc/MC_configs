@@ -32,3 +32,21 @@
     <parameter name="OETrackerHitsCollection" type="string" lcioInType="TrackerHitPlane">OETrackerHits </parameter>
     <parameter name="VBRelationCollection" type="string" lcioInType="LCRelation">VBTrackerHitsRelations </parameter>
 </processor>
+
+  <processor name="MySimHitHistos" type="SimHitHistProc">
+    <parameter name="Verbosity" options="DEBUG0-9,MESSAGE0-9,WARNING0-9,ERROR0-9,SILENT">MESSAGE </parameter>
+    <!-- Sim hits-->
+    <parameter name="VBSimHitsCollection" type="string" lcioInType="SimTrackerHit">VertexBarrelCollection_TF </parameter>
+    <parameter name="IBSimHitsCollection" type="string" lcioInType="SimTrackerHit">InnerTrackerBarrelCollection_TF </parameter>
+    <parameter name="OBSimHitsCollection" type="string" lcioInType="SimTrackerHit">OuterTrackerBarrelCollection </parameter>
+    <parameter name="VESimHitsCollection" type="string" lcioInType="SimTrackerHit">VertexEndcapCollection </parameter>
+    <parameter name="IESimHitsCollection" type="string" lcioInType="SimTrackerHit">InnerTrackerEndcapCollection </parameter>
+    <parameter name="OESimHitsCollection" type="string" lcioInType="SimTrackerHit">OuterTrackerEndcapCollection </parameter>
+    <!-- Tracker hits-->
+    <parameter name="VBTrackerHitsCollection" type="string" lcioInType="TrackerHitPlane">VBTrackerHits_CTF </parameter>
+    <parameter name="IBTrackerHitsCollection" type="string" lcioInType="TrackerHitPlane">IBTrackerHits_CTF </parameter>
+    <parameter name="OBTrackerHitsCollection" type="string" lcioInType="TrackerHitPlane">OBTrackerHits </parameter>
+    <parameter name="VETrackerHitsCollection" type="string" lcioInType="TrackerHitPlane">VETrackerHits </parameter>
+    <parameter name="IETrackerHitsCollection" type="string" lcioInType="TrackerHitPlane">IETrackerHits </parameter>
+    <parameter name="OETrackerHitsCollection" type="string" lcioInType="TrackerHitPlane">OETrackerHits </parameter>
+  </processor>
