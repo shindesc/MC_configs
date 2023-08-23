@@ -1,5 +1,4 @@
 # MuCol
-Various code I wrote for Muon Collider detector studies
 
 config.xml and config_10tev.xml are used to run the digitization in the two different geometries.
 
