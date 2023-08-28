@@ -97,7 +97,7 @@
     <!-- compression of output file 0: false >0: true (default) -->
     <parameter name="Compress" type="int" value="1"/>
     <!-- filename without extension-->
-    <parameter name="FileName" type="string" value="histograms_timingcut_10tev"/>
+    <parameter name="FileName" type="string" value="histograms_timingcut"/>
     <!-- type of output file xml (default) or root ( only OpenScientist)-->
     <parameter name="FileType" type="string" value="root "/>
   </processor>
@@ -111,7 +111,7 @@
 
   <global>
     <parameter name="LCIOInputFiles">
-      /global/cfs/cdirs/atlas/sellgren/MuonCollider/code/MyWorkspace/run/10tev/output_30psvx.slcio
+      /global/cfs/cdirs/atlas/sellgren/MuonCollider/code/MyWorkspace/run/fix10tevlayers/output_notimingcut.slcio
     </parameter>
     <!-- Limit the number of processed records (run+evt): -->
     <parameter name="MaxRecordNumber" value="-1" />
@@ -121,8 +121,6 @@
     <parameter name="RandomSeed" value="1234567890" />
   </global>
 
-
-  
   <processor name="MyTrackTruth" type="TrackTruthProc">
     <parameter name="TrackCollection" type="string" lcioInType="Track">SiTracks</parameter>
     <parameter name="MCParticleCollection" type="string" lcioInType="MCParticle">MCParticle</parameter>
