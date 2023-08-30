@@ -229,25 +229,8 @@
   <parameter name="TPCDriftvelocity" type="float" value="0.05"/>
 
   <parameter name="Collection_IntegrationTimes" type="StringVec" >
-    VertexBarrelCollection -0.36 0.48
-    VertexEndcapCollection -0.36 0.48
-
-    InnerTrackerBarrelCollection -0.36 0.48
-    InnerTrackerEndcapCollection -0.36 0.48
-
-    OuterTrackerBarrelCollection -0.36 0.48
-    OuterTrackerEndcapCollection -0.36 0.48
-
-    ECalBarrelCollection -0.25 10.
-    ECalEndcapCollection -0.25 10.
-    ECalPlugCollection   -0.25 10.
-
-    HCalBarrelCollection -0.25 10.
-    HCalEndcapCollection -0.25 10.
-    HCalRingCollection   -0.25 10.
-
-    YokeBarrelCollection -0.25 10.
-    YokeEndcapCollection -0.25 10.
+    VertexBarrelCollection -2.0 15.0
+    InnerTrackerBarrelCollection -2.0 15.0
   </parameter>
 
 </processor>

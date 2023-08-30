@@ -35,9 +35,11 @@
     <!-- ==========  Filters  ========== -->
     <processor name="FilterClusters_VB_tight" />
     <processor name="FilterClusters_IB_tight" />
+    <!-- <processor name="FilterClusters_OB_tight" /> -->
 
     <processor name="HitTimeFilter_VX" />
     <processor name="HitTimeFilter_IT" />
+    <processor name="HitTimeFilter_OT" />
     <!-- <processor name="FilterDL_VXDB"/> -->
 
 

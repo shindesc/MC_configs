@@ -13,7 +13,7 @@
   </processor>
 
 <processor name="MyTrackPerf" type="TrackPerfHistProc">
-    <parameter name="Verbosity" options="DEBUG0-9,MESSAGE0-9,WARNING0-9,ERROR0-9,SILENT">DEBUG9 </parameter>
+    <parameter name="Verbosity" options="DEBUG0-9,MESSAGE0-9,WARNING0-9,ERROR0-9,SILENT">MESSAGE </parameter>
     <!--Name of the MCParticle collection-->
     <parameter name="MCParticleCollection" type="string" lcioInType="MCParticle">MCParticle</parameter>
     
@@ -33,6 +33,8 @@
     <parameter name="IETrackerHitsCollection" type="string" lcioInType="TrackerHitPlane">IETrackerHits </parameter>
     <parameter name="OETrackerHitsCollection" type="string" lcioInType="TrackerHitPlane">OETrackerHits </parameter>
     <parameter name="VBRelationCollection" type="string" lcioInType="LCRelation">VBTrackerHitsRelations </parameter>
+    <parameter name="IBRelationCollection" type="string" lcioInType="LCRelation">IBTrackerHitsRelations </parameter>
+    <parameter name="OBRelationCollection" type="string" lcioInType="LCRelation">OBTrackerHitsRelations </parameter>
 </processor>
 
   <processor name="MySimHitHistos" type="SimHitHistProc">

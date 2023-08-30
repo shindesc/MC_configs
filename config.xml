@@ -21,17 +21,18 @@
     <processor name="InitDD4hep"/>
 
     <!-- ==========  Overlay  ========== -->
-    <processor name="OverlayNone"/>
+    <processor name="OverlayFull"/>
 
     <!-- ==========  Tracker Digitization  ========== -->
     <processor name="VXDBarrelRealisticDigi"/> 
-    <processor name="VXDEndcapRealisticDigi"/>
-    <!-- <processor name="VXDEndcapDigitiser"/> -->
-    <!-- <processor name="InnerPlanarRealisticDigi"/> -->
-    <processor name="InnerPlanarDigiProcessor" />
+    <!-- <processor name="VXDEndcapRealisticDigi"/> -->
+    <processor name="VXDEndcapDigitiser" />
+    <processor name="InnerPlanarRealisticDigi"/> 
+    <!-- <processor name="InnerPlanarDigiProcessor" /> -->
     <!-- <processor name="InnerEndcapRealisticDigi"/> -->
     <processor name="InnerEndcapPlanarDigiProcessor"/>
-    <processor name="OuterPlanarDigiProcessor"/> 
+    <processor name="OuterPlanarRealisticDigi"/>
+    <!-- <processor name="OuterPlanarDigiProcessor"/> -->
     <processor name="OuterEndcapPlanarDigiProcessor"/>
 
     <!-- ==========  Filters  ========== -->
@@ -46,8 +47,8 @@
     
     <!-- ==========  Track Perf  ========== --> 
     <!-- <processor name="MyTrackTruth" /> -->
-    <!-- <processor name="MyTrackPerf" />
-    <processor name="MySimHitHistos" /> -->
+    <processor name="MyTrackPerf" />
+    <processor name="MySimHitHistos" />
 
     <!-- ==========  Output  ========== -->
     <processor name="MyLCTuple" />
@@ -98,7 +99,7 @@
     <!-- compression of output file 0: false >0: true (default) -->
     <parameter name="Compress" type="int" value="1"/>
     <!-- filename without extension-->
-    <parameter name="FileName" type="string" value="histograms_realendcaps_nobib_1e"/>
+    <parameter name="FileName" type="string" value="histos_realouter_bib"/>
     <!-- type of output file xml (default) or root ( only OpenScientist)-->
     <parameter name="FileType" type="string" value="root "/>
   </processor>
@@ -132,7 +133,7 @@
 
   <processor name="Output_REC" type="LCIOOutputProcessor">
     <!--   standard output: full reconstruction keep all collections -->
-    <parameter name="LCIOOutputFile" type="string"> output_realendcap_nobib_1e.slcio </parameter>
+    <parameter name="LCIOOutputFile" type="string"> output_realotb_bib_1e.slcio </parameter>
     <parameter name="FullSubsetCollections" type="StringVec"> EfficientMCParticles InefficientMCParticles </parameter>
     <parameter name="LCIOWriteMode" type="string" value="WRITE_NEW"/>
     <!-- <parameter name="SplitFileSizekB" type="int">996147 </parameter> -->

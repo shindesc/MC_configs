@@ -59,7 +59,6 @@
   <!-- <include ref="../../subconfigs/Overlay.xml"/>
   <include ref="../../subconfigs/Digitization.xml"/>
   <include ref="../../subconfigs/Tracking.xml"/> -->
-  <include ref="../../subconfigs/Filters.xml"/>
   <!-- <include ref="../../subconfigs/LCTuple.xml"/> -->
 
 
@@ -178,13 +177,37 @@
     <!--Name of the DD4hep compact xml file to load-->
     <parameter name="DD4hepXMLFile" type="string">
       <!-- /opt/ilcsoft/muonc/detector-simulation/geometries/MuColl_v1.1/MuColl_v1.xml -->
-      ~/detector-simulation/geometries/MuColl_10TeV_v0A/MuColl_10TeV_v0A.xml
+      /global/cfs/cdirs/atlas/sellgren/MuonCollider/code/MyWorkspace/geometrycopies/MuColl_10TeV_v0A/MuColl_10TeV_v0A_FAKELAYERS.xml
     </parameter>
     <!--Alternate name for EncodingStringParameterName-->
     <!--If given, the Compact File parameter of that name will be used as argument to LCTrackerCellID::set_encoding_string()-->
     <parameter name="EncodingStringParameterName" type="string"> GlobalTrackerReadoutID  </parameter>
     <!--verbosity level of this processor ("DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT")-->
     <!--parameter name="Verbosity" type="string">DEBUG </parameter-->
+  </processor>
+
+  <processor name="HitTimeFilter_VX" type = "FilterTimeHits"> 
+    <parameter name="TrackerHitInputCollections" type="StringVec"> VBTrackerHits</parameter>
+    <parameter name="TrackerSimHitInputCollections" type="StringVec"> VertexBarrelCollection </parameter>
+    <parameter name="TrackerHitInputRelations" type="StringVec"> VBTrackerHitsRelations </parameter>
+    <parameter name="TrackerHitOutputCollections" type="StringVec"> VBTrackerHits_TF </parameter>
+    <parameter name="TrackerSimHitOutputCollections" type="StringVec"> VertexBarrelCollection_TF </parameter>
+    <parameter name="TrackerHitOutputRelations" type="StringVec"> VBTrackerHitsRelations_TF </parameter>
+    <parameter name="TimeLowerLimit" type="double"> -0.09 </parameter>
+    <parameter name="TimeUpperLimit" type="double">  0.09 </parameter>
+    <parameter name="FillHistograms" type="bool" value="true" />
+  </processor>
+
+  <processor name="HitTimeFilter_IT" type = "FilterTimeHits"> 
+    <parameter name="TrackerHitInputCollections" type="StringVec"> IBTrackerHits </parameter>
+    <parameter name="TrackerSimHitInputCollections" type="StringVec"> InnerTrackerBarrelCollection </parameter>
+    <parameter name="TrackerHitInputRelations" type="StringVec">IBTrackerHitsRelations </parameter>
+    <parameter name="TrackerHitOutputCollections" type="StringVec"> IBTrackerHits_TF </parameter>
+    <parameter name="TrackerSimHitOutputCollections" type="StringVec"> InnerTrackerBarrelCollection_TF </parameter>
+    <parameter name="TrackerHitOutputRelations" type="StringVec"> IBTrackerHitsRelations_TF </parameter>
+    <parameter name="TimeLowerLimit" type="double"> -0.18 </parameter>
+    <parameter name="TimeUpperLimit" type="double">  0.18 </parameter>
+    <parameter name="FillHistograms" type="bool" value="true" />
   </processor>
 
   <processor name="Output_REC" type="LCIOOutputProcessor">
