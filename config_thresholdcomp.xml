@@ -1,14 +1,138 @@
- <!-- ======================================================================================================== -->
+<?xml version="1.0" encoding="us-ascii"?>
+<marlin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ilcsoft.desy.de/marlin/marlin.xsd">
+
+  <constants>
+  </constants>
+  
+  <!-- ======================================================================================================== -->
+  <!-- ======================================================================================================== -->
+  <!-- == List of processors to execute                                                                      == -->
+  <!-- ======================================================================================================== -->
+  <!-- ======================================================================================================== -->
+
+  <execute>
+
+    <!-- ==========  Setup  ========== -->
+    <processor name="MyAIDAProcessor"/>
+    <processor name="EventNumber" />
+    <processor name="Config" />
+
+    <!-- ==========  Geometry initialization  ========== -->
+    <processor name="InitDD4hep"/>
+
+    <!-- ==========  Overlay  ========== -->
+    <processor name="OverlayNone"/>
+
+    <!-- ==========  Tracker Digitization  ========== -->
+    <processor name="VXDBarrelRealisticDigi"/> 
+    <processor name="VXDBarrelDigitiser"/>
+    <!-- <processor name="VXDEndcapRealisticDigi"/> -->
+    <!-- <processor name="VXDEndcapDigitiser"/> -->
+    <processor name="InnerPlanarRealisticDigi"/>
+    <processor name="InnerPlanarDigiProcessor" />
+    <!-- <processor name="InnerEndcapRealisticDigi"/> -->
+    <processor name="InnerEndcapPlanarDigiProcessor"/>
+    <processor name="OuterPlanarDigiProcessor"/> 
+    <processor name="OuterEndcapPlanarDigiProcessor"/>
+
+    <!-- ==========  Filters  ========== -->
+    <!-- <processor name="FilterClusters" /> -->
+    <!-- <processor name="FilterDL_VXDB"/> -->
+
+
+    <!-- ==========  Tracking  ========== -->
+    <!-- <processor name="MyCKFTracking"/>
+    <processor name="MyTrackDeduper"/>
+    <processor name="MyTrackFilter"/> -->
+    
+    <!-- ==========  Track Perf  ========== --> 
+    <!-- <processor name="MyTrackTruth" /> -->
+    <!-- <processor name="MyTrackPerf" />
+    <processor name="MySimHitHistos" /> -->
+
+    <!-- ==========  Output  ========== -->
+    <processor name="MyLCTuple" />
+    <processor name="Output_REC"/>
+
+  </execute>
+
+  <include ref="subconfigs/InitDD4hep.xml"/>
+  <include ref="subconfigs/Overlay.xml"/>
+  <include ref="subconfigs/Tracking.xml"/>
+  <include ref="subconfigs/TrackPerf.xml"/>
+  <include ref="subconfigs/Filters.xml"/>
+  <include ref="subconfigs/LCTuple.xml"/>
+
+
+  <!-- ======================================================================================================== -->
+  <!-- ======================================================================================================== -->
+  <!-- == Global setup                                                                                       == -->
+  <!-- ======================================================================================================== -->
+  <!-- ======================================================================================================== -->
+
+  <processor name="Config" type="CLICRecoConfig" >
+    <parameter name="Verbosity" options="DEBUG0-9,MESSAGE0-9,WARNING0-9,ERROR0-9,SILENT"> DEBUG7  </parameter>
+    <!--Which option to use for Overlay: False, BIB. Then use, e.g., Config.OverlayFalse in the condition-->
+    <parameter name="Overlay" type="string">False</parameter>
+    <!--Possible values and conditions for option Overlay-->
+    <parameter name="OverlayChoices" type="StringVec">False BIB</parameter>
+    <!--Which option to use for Tracking: Truth, ConformalPlusExtrapolator, Conformal. Then use, e.g., Config.TrackingTruth in the condition-->
+    <parameter name="Tracking" type="string">ACTS </parameter>
+    <!--Possible values and conditions for option Tracking-->
+    <parameter name="TrackingChoices" type="StringVec">Truth Conformal ACTS  </parameter>
+    <!--Which option to use for VertexUnconstrained: ON, OFF. Then use, e.g., Config.VertexUnconstrainedOFF in the condition-->
+    <parameter name="VertexUnconstrained" type="string">OFF </parameter>
+    <!--Possible values and conditions for option Tracking-->
+    <parameter name="VertexUnconstrainedChoices" type="StringVec">ON OFF  </parameter>
+    <!--verbosity level of this processor ("DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT")-->
+    <parameter name="Verbosity" options="DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT"> MESSAGE0  </parameter> 
+  </processor>
+
+  <processor name="EventNumber" type="Statusmonitor">
+    <parameter name="HowOften" type="int">1 </parameter>
+    <parameter name="Verbosity" type="string"> MESSAGE </parameter>
+  </processor>
+
+  <processor name="MyAIDAProcessor" type="AIDAProcessor">
+    <!--Processor that handles AIDA files. Creates on directory per processor.  Processors only need to create and fill the histograms, clouds and tuples. Needs to be the first ActiveProcessor-->
+    <!-- compression of output file 0: false >0: true (default) -->
+    <parameter name="Compress" type="int" value="1"/>
+    <!-- filename without extension-->
+    <parameter name="FileName" type="string" value="throw"/>
+    <!-- type of output file xml (default) or root ( only OpenScientist)-->
+    <parameter name="FileType" type="string" value="root "/>
+  </processor>
+
+
+  <!-- ======================================================================================================== -->
+  <!-- ======================================================================================================== -->
+  <!-- == Input configuration                                                                                == -->
+  <!-- ======================================================================================================== -->
+  <!-- ======================================================================================================== -->
+
+  <global>
+    <parameter name="LCIOInputFiles">
+      /global/cfs/cdirs/atlas/sellgren/MuonCollider/code/MyWorkspace/sims/muGun_1e_10kparticles_v1.1.slcio
+    </parameter>
+    <!-- Limit the number of processed records (run+evt): -->
+    <parameter name="MaxRecordNumber" value="-1" />
+    <parameter name="SkipNEvents" value="0" />
+    <parameter name="SupressCheck" value="false" />  
+    <parameter name="Verbosity" options="DEBUG0-9,MESSAGE0-9,WARNING0-9,ERROR0-9,SILENT">WARNING </parameter>
+    <parameter name="RandomSeed" value="1234567890" />
+  </global>
+
+  <!-- ======================================================================================================== -->
   <!-- ======================================================================================================== -->
   <!-- == Tracker Digitizer configuration                                                                    == -->
   <!-- ======================================================================================================== -->
   <!-- ======================================================================================================== -->
 
 <processor name="VXDBarrelRealisticDigi" type="MuonCVXDDigitiser">
-    <parameter name="Verbosity" type="string"> MESSAGE </parameter>
+    <parameter name="Verbosity" type="string"> DEBUG0 </parameter>
     <parameter name="CollectionName" type="string"> VertexBarrelCollection </parameter>
-    <parameter name="OutputCollectionName" type="string"> VBTrackerHits </parameter>
-    <parameter name="RelationColName" type="string"> VBTrackerHitsRelations </parameter>
+    <parameter name="OutputCollectionName" type="string"> VBTrackerHits_realistic </parameter>
+    <parameter name="RelationColName" type="string"> VBTrackerHitsRelations_realistic </parameter>
     <parameter name="SubDetectorName" type="string"> VertexBarrel </parameter>
     <!-- store all fired pixels -->
     <parameter name="StoreFiredPixels" type="int"> 1 </parameter>
@@ -53,7 +177,7 @@
 </processor>
 
 <processor name="VXDEndcapRealisticDigi" type="MuonCVXDDigitiser">
-    <parameter name="Verbosity" type="string"> MESSAGE </parameter>
+    <parameter name="Verbosity" type="string"> DEBUG0 </parameter>
     <parameter name="CollectionName" type="string"> VertexEndcapCollection </parameter>
     <parameter name="OutputCollectionName" type="string"> VETrackerHits </parameter>
     <parameter name="RelationColName" type="string"> VETrackerHitsRelations </parameter>
@@ -104,8 +228,8 @@
 <processor name="InnerPlanarRealisticDigi" type="MuonCVXDDigitiser">
     <parameter name="Verbosity" type="string">MESSAGE </parameter>
     <parameter name="CollectionName" type="string"> InnerTrackerBarrelCollection </parameter>
-    <parameter name="OutputCollectionName" type="string"> IBTrackerHits </parameter>
-    <parameter name="RelationColName" type="string"> IBTrackerHitsRelations </parameter>
+    <parameter name="OutputCollectionName" type="string"> IBTrackerHits_realistic </parameter>
+    <parameter name="RelationColName" type="string"> IBTrackerHitsRelations_realistic </parameter>
     <parameter name="SubDetectorName" type="string"> InnerTrackerBarrel </parameter>
     <!-- store all fired pixels -->
     <parameter name="StoreFiredPixels" type="int"> 1 </parameter>
@@ -154,7 +278,7 @@
   </processor>
 
   <processor name="InnerEndcapRealisticDigi" type="MuonCVXDDigitiser">
-    <parameter name="Verbosity" type="string">MESSAGE </parameter>
+    <parameter name="Verbosity" type="string">DEBUG0 </parameter>
     <parameter name="CollectionName" type="string"> InnerTrackerEndcapCollection </parameter>
     <parameter name="OutputCollectionName" type="string"> IETrackerHits </parameter>
     <parameter name="RelationColName" type="string"> IETrackerHitsRelations </parameter>
@@ -206,110 +330,6 @@
     <parameter name="ElectronsPerKeV" type="float"> 270.3 </parameter>
   </processor>
 
-  <processor name="OuterPlanarRealisticDigi" type="MuonCVXDDigitiser">
-    <parameter name="Verbosity" type="string">MESSAGE </parameter>
-    <parameter name="CollectionName" type="string"> OuterTrackerBarrelCollection </parameter>
-    <parameter name="OutputCollectionName" type="string"> OBTrackerHits </parameter>
-    <parameter name="RelationColName" type="string"> OBTrackerHitsRelations </parameter>
-    <parameter name="SubDetectorName" type="string"> OuterTrackerBarrel </parameter>
-    <!-- store all fired pixels -->
-    <parameter name="StoreFiredPixels" type="int"> 1 </parameter>
-    <!-- Pixel size (mm) -->
-    <parameter name="PixelSizeX" type="float"> 0.050 </parameter>
-    <parameter name="PixelSizeY" type="float"> 10.0 </parameter>
-    <!-- FE threshold (in electrons) and electronic effects -->
-    <!-- Calc: 500 electrons [previous val] * 100um/50um [doubling thickness of sensor, shortest path of charged particle]-->
-    <parameter name="Threshold" type="float"> 1000. </parameter> 
-    <!-- Doubled size of largest bin (30,000) -->
-    <parameter name="ChargeMaximum" type="float"> 60000. </parameter>
-    <parameter name="ThresholdSmearSigma" type="int"> 25 </parameter>
-    <parameter name="DigitizeCharge" type="int"> 1 </parameter>
-    <parameter name="ChargeDigitizeNumBits" type="int"> 4 </parameter>
-    <parameter name="ChargeDigitizeBinning" type="int"> 1 </parameter>
-    <parameter name="DigitizeTime" type="int"> 0 </parameter>
-    <parameter name="TimeDigitizeNumBits" type="int"> 10 </parameter>
-    <parameter name="TimeDigitizeBinning" type="int"> 0 </parameter>
-    <!-- Calc: 90ps * 5.3 [ratio of R-dist of furthest IB layer to furthest VB layer]-->
-    <!-- 0.48 is extension of 90ps to further range-->
-    <parameter name="TimeMaximum" type="float"> 15.0 </parameter>
-    <!-- 60ps is resolution of IT detectors-->
-    <parameter name="TimeSmearingSigma" type="float"> 0.060 </parameter>
-    <parameter name="ElectronicEffects" type="int"> 1 </parameter>
-    <parameter name="ElectronicNoise" type="float"> 80 </parameter>
-    <!--Tangent of Lorentz angle (and optional Y component); SP note: a bit large.. did not x-check calcuilation-->
-    <parameter name="TanLorentz" type="float"> 0.8 </parameter>
-    <parameter name="TanLorentzY" type="float"> 0.0 </parameter>
-    <!-- Apply Poisson smearing of electrons collected on pixels -->
-    <parameter name="PoissonSmearing" type="int"> 1 </parameter>
-    <!--Min threshold for delta-rays (MeV)-->
-    <parameter name="CutOnDeltaRays" type="float"> 0.030 </parameter>
-    <!-- Diffusion coefficient, defined as sqrt(D / mu / V) and 
-         correlated with diffusion sigma by sigma(z) = z*_diffusionCoefficient -->
-    <parameter name="Diffusion" type="float"> 0.07 </parameter>
-    <!-- Segment Length in mm -->
-    <parameter name="SegmentLength" type="float"> 0.005 </parameter>
-    <!-- Energy Loss keV/mm -->
-    <parameter name="EnergyLoss" type="float"> 280.0 </parameter>
-    <!-- Max delta in energy for hit in electrons -->
-    <parameter name="MaxEnergyDelta" type="float"> 100.0 </parameter> 
-    <!-- Maximum values for track length (in mm) -->
-    <parameter name="MaxTrackLength" type="float"> 10.0 </parameter>
-    <!-- Number of electron-hole pairs per keV -->
-    <parameter name="ElectronsPerKeV" type="float"> 270.3 </parameter>
-  </processor>
-
-  <processor name="OuterEndcapRealisticDigi" type="MuonCVXDDigitiser">
-    <parameter name="Verbosity" type="string">MESSAGE </parameter>
-    <parameter name="CollectionName" type="string"> OuterTrackerEndcapCollection </parameter>
-    <parameter name="OutputCollectionName" type="string"> OETrackerHits </parameter>
-    <parameter name="RelationColName" type="string"> OETrackerHitsRelations </parameter>
-    <parameter name="SubDetectorName" type="string"> OuterTrackerEndcap </parameter>
-    <!-- store all fired pixels -->
-    <parameter name="StoreFiredPixels" type="int"> 1 </parameter>
-    <!-- Pixel size (mm) -->
-    <parameter name="PixelSizeX" type="float"> 0.050 </parameter>
-    <parameter name="PixelSizeY" type="float"> 10.0 </parameter>
-    <!-- FE threshold (in electrons) and electronic effects -->
-    <!-- Calc: 500 electrons [previous val] * 100um/50um [doubling thickness of sensor, shortest path of charged particle]-->
-    <parameter name="Threshold" type="float"> 1000. </parameter> 
-    <!-- Doubled size of largest bin (30,000) -->
-    <parameter name="ChargeMaximum" type="float"> 60000. </parameter>
-    <parameter name="ThresholdSmearSigma" type="int"> 25 </parameter>
-    <parameter name="DigitizeCharge" type="int"> 1 </parameter>
-    <parameter name="ChargeDigitizeNumBits" type="int"> 4 </parameter>
-    <parameter name="ChargeDigitizeBinning" type="int"> 1 </parameter>
-    <parameter name="DigitizeTime" type="int"> 0 </parameter>
-    <parameter name="TimeDigitizeNumBits" type="int"> 10 </parameter>
-    <parameter name="TimeDigitizeBinning" type="int"> 0 </parameter>
-    <!-- Calc: 90ps * 5.3 [ratio of R-dist of furthest IB layer to furthest VB layer]-->
-    <!-- 0.48 is extension of 90ps to further range-->
-    <parameter name="TimeMaximum" type="float"> 15.0 </parameter>
-    <!-- 60ps is resolution of IT detectors-->
-    <parameter name="TimeSmearingSigma" type="float"> 0.060 </parameter>
-    <parameter name="ElectronicEffects" type="int"> 1 </parameter>
-    <parameter name="ElectronicNoise" type="float"> 80 </parameter>
-    <!--Tangent of Lorentz angle (and optional Y component); SP note: a bit large.. did not x-check calcuilation-->
-    <parameter name="TanLorentz" type="float"> 0.0 </parameter>
-    <parameter name="TanLorentzY" type="float"> 0.0 </parameter>
-    <!-- Apply Poisson smearing of electrons collected on pixels -->
-    <parameter name="PoissonSmearing" type="int"> 1 </parameter>
-    <!--Min threshold for delta-rays (MeV)-->
-    <parameter name="CutOnDeltaRays" type="float"> 0.030 </parameter>
-    <!-- Diffusion coefficient, defined as sqrt(D / mu / V) and 
-         correlated with diffusion sigma by sigma(z) = z*_diffusionCoefficient -->
-    <parameter name="Diffusion" type="float"> 0.07 </parameter>
-    <!-- Segment Length in mm -->
-    <parameter name="SegmentLength" type="float"> 0.005 </parameter>
-    <!-- Energy Loss keV/mm -->
-    <parameter name="EnergyLoss" type="float"> 280.0 </parameter>
-    <!-- Max delta in energy for hit in electrons -->
-    <parameter name="MaxEnergyDelta" type="float"> 100.0 </parameter> 
-    <!-- Maximum values for track length (in mm) -->
-    <parameter name="MaxTrackLength" type="float"> 10.0 </parameter>
-    <!-- Number of electron-hole pairs per keV -->
-    <parameter name="ElectronsPerKeV" type="float"> 270.3 </parameter>
-  </processor>
-
   <processor name="VXDBarrelDigitiser" type="DDPlanarDigiProcessor"> 
     <parameter name="SubDetectorName" type="string"> Vertex </parameter>
     <!--PlanarDigiProcessor creates TrackerHits from SimTrackerHits, smearing them according to the input parameters.-->
@@ -322,9 +342,9 @@
     <!--Name of the Input SimTrackerHit collection-->
     <parameter name="SimTrackHitCollectionName" type="string" lcioInType="SimTrackerHit"> VertexBarrelCollection </parameter>
     <!--Name of TrackerHit SimTrackHit relation collection-->
-    <parameter name="SimTrkHitRelCollection" type="string" lcioOutType="LCRelation"> VBTrackerHitsRelations </parameter>
+    <parameter name="SimTrkHitRelCollection" type="string" lcioOutType="LCRelation"> VBTrackerHitsRelations_planar </parameter>
     <!--Name of the TrackerHit output collection-->
-    <parameter name="TrackerHitCollectionName" type="string" lcioOutType="TrackerHitPlane"> VBTrackerHits </parameter>
+    <parameter name="TrackerHitCollectionName" type="string" lcioOutType="TrackerHitPlane"> VBTrackerHits_planar </parameter>
     <!--resolution in time-->
     <parameter name="ResolutionT" type="FloatVec"> 0.03  </parameter>
     <!--resolution in direction of u - either one per layer or one for all layers -->
@@ -380,9 +400,9 @@
     <!--Name of the Input SimTrackerHit collection-->
     <parameter name="SimTrackHitCollectionName" type="string" lcioInType="SimTrackerHit"> InnerTrackerBarrelCollection </parameter>
     <!--Name of TrackerHit SimTrackHit relation collection-->
-    <parameter name="SimTrkHitRelCollection" type="string" lcioOutType="LCRelation"> IBTrackerHitsRelations </parameter>
+    <parameter name="SimTrkHitRelCollection" type="string" lcioOutType="LCRelation"> IBTrackerHitsRelations_planar </parameter>
     <!--Name of the TrackerHit output collection-->
-    <parameter name="TrackerHitCollectionName" type="string" lcioOutType="TrackerHitPlane"> IBTrackerHits </parameter>
+    <parameter name="TrackerHitCollectionName" type="string" lcioOutType="TrackerHitPlane"> IBTrackerHits_planar </parameter>
     <!--resolution in time-->
     <parameter name="ResolutionT" type="FloatVec"> 0.06  </parameter>
     <!--resolution in direction of u - either one per layer or one for all layers -->
@@ -483,3 +503,29 @@
     <!--verbosity level of this processor ("DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT")-->
     <parameter name="Verbosity" type="string"> WARNING </parameter>
   </processor>
+
+
+
+
+  <!-- ======================================================================================================== -->
+  <!-- ======================================================================================================== -->
+  <!-- == Output configuration                                                                               == -->
+  <!-- ======================================================================================================== -->
+  <!-- ======================================================================================================== -->
+
+  <processor name="Output_REC" type="LCIOOutputProcessor">
+    <!--   standard output: full reconstruction keep all collections -->
+    <parameter name="LCIOOutputFile" type="string"> output_bothdigis.slcio </parameter>
+    <parameter name="FullSubsetCollections" type="StringVec"> EfficientMCParticles InefficientMCParticles </parameter>
+    <parameter name="LCIOWriteMode" type="string" value="WRITE_NEW"/>
+    <!-- <parameter name="SplitFileSizekB" type="int">996147 </parameter> -->
+    <parameter name="Verbosity" type="string">WARNING </parameter>
+    <parameter name="DropCollectionNames" type="StringVec">  
+    </parameter>
+    <parameter name="DropCollectionTypes" type="StringVec">
+    </parameter>
+    <parameter name="KeepCollectionNames" type="StringVec">  </parameter>
+  </processor>
+
+</marlin>
+

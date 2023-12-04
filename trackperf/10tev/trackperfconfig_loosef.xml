@@ -114,7 +114,7 @@
 
   <global>
     <parameter name="LCIOInputFiles">
-      /global/cfs/cdirs/atlas/sellgren/MuonCollider/code/MyWorkspace/run/nodigitiming_nazbib/output_nazarbib_15nstiming_digitimingoff_1e_v1_1.slcio
+      /global/cfs/cdirs/atlas/sellgren/MuonCollider/code/MyWorkspace/run/december_10tev/output_10tev_newbib.slcio
     </parameter>
     <!-- Limit the number of processed records (run+evt): -->
     <parameter name="MaxRecordNumber" value="-1" />

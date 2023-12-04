@@ -1,0 +1,40 @@
+<group name="Overlay">
+  <parameter name="MCParticleCollectionName" type="string">MCParticle </parameter>
+  <!--The output MC Particle Collection Name for the physics event-->
+  <parameter name="MCPhysicsParticleCollectionName" type="string"> MCPhysicsParticles </parameter>
+  <!--Time difference between bunches in the bunch train in ns-->
+  <parameter name="Delta_t" type="float" value="1"/>
+  <!--Number of bunches in a bunch train-->
+  <parameter name="NBunchtrain" type="int" value="1"/>
+  <!--Whether MCParticle collections should be merged (slow with BIB) -->
+  <parameter name="MergeMCParticles" type="bool" value="false"/>
+  <!--Lower time limit for collections with a single value -->
+  <parameter name="IntegrationTimeMin" type="float" value="-2.0"/>
+
+  <parameter name="Collection_IntegrationTimes" type="StringVec" >
+    VertexBarrelCollection        15.0
+    VertexEndcapCollection        15.0
+  </parameter>
+
+  <!--Number of the Bunch crossing of the physics event-->
+  <parameter name="PhysicsBX" type="int" value="1"/>
+  <!--Draw random number of Events to overlay from Poisson distribution with  mean value NumberBackground-->
+  <parameter name="Poisson_random_NOverlay" type="bool" value="false"/>
+  <!--Place the physics event at an random position in the train - overrides PhysicsBX-->
+  <parameter name="RandomBx" type="bool" value="false"/>
+  <!--[mm/ns] (float) - default 5.0e-2 (5cm/us)-->
+  <parameter name="TPCDriftvelocity" type="float" value="0.05"/>
+
+  <parameter name="Verbosity" options="DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT">MESSAGE </parameter>
+  <parameter name="AllowReusingBackgroundFiles" type="bool" value="true" />
+  <parameter name="StartBackgroundFileIndex" type="int" value="0"/>
+
+  <processor name="OverlayBIB" type="OverlayTimingGeneric">
+    <parameter name="BackgroundFileNames" type="StringVec">
+      simhit/mumi_t25ns_n150MeV.slcio
+      simhit/mupl_t25ns_n150MeV.slcio
+    </parameter>
+    <parameter name="NumberBackground" type="float" value="2993" />
+  </processor>
+
+</group>

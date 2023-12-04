@@ -24,36 +24,43 @@
     <processor name="OverlayFull"/>
 
     <!-- ==========  Tracker Digitization  ========== -->
-    <processor name="VXDBarrelRealisticDigi"/> 
-    <!-- <processor name="VXDEndcapRealisticDigi"/> -->
-    <processor name="VXDEndcapDigitiser" />
-    <processor name="InnerPlanarRealisticDigi"/> 
-    <!-- <processor name="InnerPlanarDigiProcessor" /> -->
+    <!-- <processor name="VXDBarrelRealisticDigi"/> 
+    <processor name="VXDEndcapRealisticDigi"/>
+    <processor name="InnerPlanarRealisticDigi"/> -->
     <!-- <processor name="InnerEndcapRealisticDigi"/> -->
+    <!-- <processor name="OuterPlanarRealisticDigi"/> -->
+    <!-- <processor name="OuterEndcapRealisticDigi"/> -->
+
+    <!-- ========== Planar Digitizers =========-->
+    <processor name="VXDBarrelDigitiser" />
+    <processor name="VXDEndcapDigitiser" />
+    <processor name="InnerPlanarDigiProcessor" />
     <processor name="InnerEndcapPlanarDigiProcessor"/>
-    <processor name="OuterPlanarRealisticDigi"/>
-    <!-- <processor name="OuterPlanarDigiProcessor"/> -->
+    <processor name="OuterPlanarDigiProcessor"/>
     <processor name="OuterEndcapPlanarDigiProcessor"/>
+
 
     <!-- ==========  Filters  ========== -->
     <!-- <processor name="FilterClusters" /> -->
     <!-- <processor name="FilterDL_VXDB"/> -->
+    <!-- <processor name="FilterClusters_VE_loose" /> -->
+    <!--<processor name="FilterClusters_VE_tight4" /> -->
 
 
     <!-- ==========  Tracking  ========== -->
-    <!-- <processor name="MyCKFTracking"/>
+    <processor name="MyCKFTracking"/>
     <processor name="MyTrackDeduper"/>
-    <processor name="MyTrackFilter"/> -->
+    <processor name="MyTrackFilter"/>
     
     <!-- ==========  Track Perf  ========== --> 
-    <!-- <processor name="MyTrackTruth" /> -->
+    <processor name="MyTrackTruth" />
     <processor name="MyTrackPerf" />
     <processor name="MySimHitHistos" />
 
     <!-- ==========  Output  ========== -->
     <processor name="MyLCTuple" />
     <processor name="Output_REC"/>
-
+    
   </execute>
 
   <include ref="subconfigs/InitDD4hep.xml"/>
@@ -99,7 +106,7 @@
     <!-- compression of output file 0: false >0: true (default) -->
     <parameter name="Compress" type="int" value="1"/>
     <!-- filename without extension-->
-    <parameter name="FileName" type="string" value="histos_realouter_bib"/>
+    <parameter name="FileName" type="string" value="histos_simpledigi_1e_tracks"/>
     <!-- type of output file xml (default) or root ( only OpenScientist)-->
     <parameter name="FileType" type="string" value="root "/>
   </processor>
@@ -133,7 +140,7 @@
 
   <processor name="Output_REC" type="LCIOOutputProcessor">
     <!--   standard output: full reconstruction keep all collections -->
-    <parameter name="LCIOOutputFile" type="string"> output_realotb_bib_1e.slcio </parameter>
+    <parameter name="LCIOOutputFile" type="string"> output_withbib_1e_simpledigi.slcio </parameter>
     <parameter name="FullSubsetCollections" type="StringVec"> EfficientMCParticles InefficientMCParticles </parameter>
     <parameter name="LCIOWriteMode" type="string" value="WRITE_NEW"/>
     <!-- <parameter name="SplitFileSizekB" type="int">996147 </parameter> -->

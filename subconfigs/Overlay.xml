@@ -234,3 +234,69 @@
   </parameter>
 
 </processor>
+
+<processor name="OverlayBIB_10TeV_mm" type="OverlayTimingGeneric">
+  <parameter name="BackgroundFileNames" type="StringVec">
+      /global/cfs/cdirs/atlas/spgriso/MuonCollider/data/bib/BIB10TeV/sim_mm_pruned
+  </parameter>
+  <parameter name="Delta_t" type="float" value="10000" />
+  <parameter name="IntegrationTimeMin" type="float" value="-0.36"/>
+  <parameter name="MCParticleCollectionName" type="string">MCParticle </parameter>
+  <!--The output MC Particle Collection Name for the physics event-->
+  <parameter name="MCPhysicsParticleCollectionName" type="string"> MCPhysicsParticles </parameter>
+  <!--Number of bunches in a bunch train-->
+  <parameter name="NBunchtrain" type="int" value="1"/>
+  <!--Whether MCParticle collections should be merged (slow with BIB) -->
+  <parameter name="MergeMCParticles" type="bool" value="false"/>
+  <!--Lower time limit for collections with a single value -->
+  <parameter name="StartBackgroundFileIndex" type="int" value="0"/>
+  <parameter name="AllowReusingBackgroundFiles" type="bool" value="true" />
+  <parameter name="Verbosity" options="DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT">MESSAGE </parameter>
+  <parameter name="NBunchtrain" type="int" value="1" />
+  <parameter name="NumberBackground" type="float" value="192" />
+  <parameter name="PhysicsBX" type="int" value="1"/>
+  <parameter name="Poisson_random_NOverlay" type="bool" value="false"/>
+  <!--Place the physics event at an random position in the train - overrides PhysicsBX-->
+  <parameter name="RandomBx" type="bool" value="false"/>
+  <!--[mm/ns] (float) - default 5.0e-2 (5cm/us)-->
+  <parameter name="TPCDriftvelocity" type="float" value="0.05"/>
+
+  <parameter name="Collection_IntegrationTimes" type="StringVec" >
+    VertexBarrelCollection -2.0 15.0
+    InnerTrackerBarrelCollection -2.0 15.0
+  </parameter>
+
+</processor>
+
+<processor name="OverlayBIB_10TeV_mp" type="OverlayTimingGeneric">
+  <parameter name="BackgroundFileNames" type="StringVec">
+      /global/cfs/cdirs/atlas/spgriso/MuonCollider/data/bib/BIB10TeV/sim_mp_pruned
+  </parameter>
+  <parameter name="Delta_t" type="float" value="10000" />
+  <parameter name="IntegrationTimeMin" type="float" value="-0.36"/>
+  <parameter name="MCParticleCollectionName" type="string">MCParticle </parameter>
+  <!--The output MC Particle Collection Name for the physics event-->
+  <parameter name="MCPhysicsParticleCollectionName" type="string"> MCPhysicsParticles </parameter>
+  <!--Number of bunches in a bunch train-->
+  <parameter name="NBunchtrain" type="int" value="1"/>
+  <!--Whether MCParticle collections should be merged (slow with BIB) -->
+  <parameter name="MergeMCParticles" type="bool" value="false"/>
+  <!--Lower time limit for collections with a single value -->
+  <parameter name="StartBackgroundFileIndex" type="int" value="0"/>
+  <parameter name="AllowReusingBackgroundFiles" type="bool" value="true" />
+  <parameter name="Verbosity" options="DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT">MESSAGE </parameter>
+  <parameter name="NBunchtrain" type="int" value="1" />
+  <parameter name="NumberBackground" type="float" value="192" />
+  <parameter name="PhysicsBX" type="int" value="1"/>
+  <parameter name="Poisson_random_NOverlay" type="bool" value="false"/>
+  <!--Place the physics event at an random position in the train - overrides PhysicsBX-->
+  <parameter name="RandomBx" type="bool" value="false"/>
+  <!--[mm/ns] (float) - default 5.0e-2 (5cm/us)-->
+  <parameter name="TPCDriftvelocity" type="float" value="0.05"/>
+
+  <parameter name="Collection_IntegrationTimes" type="StringVec" >
+    VertexBarrelCollection -2.0 15.0
+    InnerTrackerBarrelCollection -2.0 15.0
+  </parameter>
+
+</processor>

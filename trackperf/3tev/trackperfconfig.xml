@@ -40,8 +40,8 @@
 
 
     <!-- ==========  Tracking  ========== -->
-    <!--
-    <processor name="MyCKFTracking"/>
+    
+    <!-- <processor name="MyCKFTracking"/>
     <processor name="MyTrackDeduper"/>
     <processor name="MyTrackFilter"/> -->
     
@@ -57,11 +57,11 @@
   </execute>
 
 
-  <!-- <include ref="../../subconfigs/Overlay.xml"/>
+  <include ref="../../subconfigs/Overlay.xml"/>
   <include ref="../../subconfigs/Digitization.xml"/>
   <include ref="../../subconfigs/Tracking.xml"/>
   <include ref="../../subconfigs/Filters.xml"/>
-  <include ref="../../subconfigs/LCTuple.xml"/> -->
+  <include ref="../../subconfigs/LCTuple.xml"/>
   <include ref="../../subconfigs/TrackPerf.xml"/>
 
 
@@ -99,7 +99,7 @@
     <!-- compression of output file 0: false >0: true (default) -->
     <parameter name="Compress" type="int" value="1"/>
     <!-- filename without extension-->
-    <parameter name="FileName" type="string" value="histograms_notimingcut"/>
+    <parameter name="FileName" type="string" value="histograms_bib_edep"/>
     <!-- type of output file xml (default) or root ( only OpenScientist)-->
     <parameter name="FileType" type="string" value="root "/>
   </processor>
@@ -113,7 +113,7 @@
 
   <global>
     <parameter name="LCIOInputFiles">
-        output_10tev_90pstiming_notracking_1e.slcio    </parameter>
+        output_withbib.slcio    </parameter>
     <!-- Limit the number of processed records (run+evt): -->
     <parameter name="MaxRecordNumber" value="-1" />
     <parameter name="SkipNEvents" value="0" />
