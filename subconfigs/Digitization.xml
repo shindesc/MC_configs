@@ -16,7 +16,7 @@
     <parameter name="PixelSizeX" type="float"> 0.025 </parameter>
     <parameter name="PixelSizeY" type="float"> 0.025 </parameter>
     <!-- FE threshold (in electrons) and electronic effects -->
-    <parameter name="Threshold" type="float"> 500 </parameter>
+    <parameter name="Threshold" type="float"> 1000 </parameter>
     <parameter name="ChargeMaximum" type="float"> 15000. </parameter>
     <parameter name="ThresholdSmearSigma" type="int"> 25 </parameter>
     <parameter name="DigitizeCharge" type="int"> 1 </parameter>
